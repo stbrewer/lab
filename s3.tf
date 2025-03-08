@@ -12,6 +12,25 @@ resource "aws_s3_bucket" "backups" {
   }
 }
 
+resource "aws_s3_bucket_ownership_controls" "backups_ownership" {
+  bucket = aws_s3_bucket.backups.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "backups" {
+  bucket = aws_s3_bucket.backups.id
+  rule {
+    id     = "delete-old-backups"
+    status = "Enabled"
+    expiration {
+      days = 90
+    }
+  }
+}
+
 # Disable block public access for this bucket so that our policy can be applied
 resource "aws_s3_bucket_public_access_block" "backups" {
   bucket                  = aws_s3_bucket.backups.id
