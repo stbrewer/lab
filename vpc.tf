@@ -37,7 +37,7 @@ resource "aws_subnet" "private" {
 
 resource "aws_subnet" "private2" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = "10.0.3.0/24"  # Choose an appropriate CIDR block
+  cidr_block        = "10.0.5.0/24"  # Choose an appropriate CIDR block
   availability_zone = "us-west-2b"
   tags = {
     Name = "${var.resource_prefix}-private-subnet-2"
