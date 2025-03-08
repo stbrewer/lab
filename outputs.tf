@@ -13,6 +13,11 @@ output "eks_cluster_name" {
   description = "Name of the EKS cluster"
   value       = module.eks.cluster_id
 }
+
+output "cluster_endpoint" {
+  value = module.eks.aws_eks_cluster.this[0].endpoint
+}
+
 /*
 output "load_balancer_url" {
   description = "URL to access the containerized web application"
