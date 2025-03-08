@@ -60,7 +60,7 @@ resource "kubernetes_service" "tasky_lb" {
 #  depends_on = [
 #    data.aws_eks_cluster.eks,
 #    data.aws_eks_cluster_auth.eks
-  ]
+#  ]
 }
 
 
