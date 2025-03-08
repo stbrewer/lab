@@ -15,7 +15,7 @@ output "eks_cluster_name" {
 }
 
 output "cluster_endpoint" {
-  value = module.eks.aws_eks_cluster.this[0].endpoint
+  value = module.eks.cluster_endpoint
 }
 
 /*
