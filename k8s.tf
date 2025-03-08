@@ -1,5 +1,4 @@
 # k8s.tf
-/*
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.eks.endpoint
@@ -60,4 +59,4 @@ resource "kubernetes_service" "tasky_lb" {
   ]
 }
 
-*/
+
