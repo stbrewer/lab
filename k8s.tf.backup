@@ -1,12 +1,12 @@
 # k8s.tf
-
+/*
 provider "kubernetes" {
   host = var.skip_kubernetes_provider ? "https://dummy" : try(module.eks.cluster_endpoint, "https://dummy")
   cluster_ca_certificate = var.skip_kubernetes_provider ? base64encode("dummy") : try(base64decode(module.eks.cluster_certificate_authority_data), base64encode("dummy"))
   token = var.skip_kubernetes_provider ? "dummy" : try(data.aws_eks_cluster_auth.eks.token, "dummy")
 }
 
-/*
+
 provider "kubernetes" {
   count = var.skip_kubernetes_provider ? 0 : 1
 
