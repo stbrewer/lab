@@ -25,12 +25,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Terraform Init
-        run: terraform init -upgrade
-
-      - name: Clear and Reinitialize Terraform
-        run: |
-          rm -rf .terraform
-          terraform init -upgrade
+        run: terraform init 
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
