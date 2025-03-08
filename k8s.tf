@@ -1,5 +1,7 @@
 # k8s.tf
 provider "kubernetes" {
+  count = var.skip_kubernetes_provider ? 0 : 1
+
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.eks.token
