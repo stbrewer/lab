@@ -28,7 +28,18 @@ jobs:
         run: terraform init -reconfigure
         
       - name: Force Unlock Terraform State (if needed)
-        run: terraform force-unlock $(terraform show | grep 'Lock ID' | awk '{print $NF}') || true
+        run: |
+          LOCK_ID=$(aws dynamodb scan \
+            --table-name terraform-locks-894370042961 \
+            --query "Items[0].LockID.S" \
+            --output text)
+          
+          if [ "$LOCK_ID" != "None" ]; then
+            echo "Forcing unlock of state with LOCK_ID: $LOCK_ID"
+            terraform force-unlock -force $LOCK_ID || true
+          else
+            echo "No active state lock found."
+          fi
 
       - name: Terraform Plan
         run: terraform plan
