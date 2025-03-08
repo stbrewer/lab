@@ -47,5 +47,5 @@ variable "mongo_admin_password" {
 
 variable "container_image" {
   description = "Container image to deploy (built and pushed via CI)"
-  default     = "your-container-registry/tasky:latest"
+  default     = "stbrewer/wizlab:tasky"
 }
