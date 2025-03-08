@@ -4,9 +4,10 @@ module "eks" {
   version         = "20.0"  # Using an older version for simplicity
   cluster_name    = "${var.resource_prefix}-eks"
   cluster_version = "1.25"
-  subnets      = [aws_subnet.private.id, aws_subnet.private2.id]
+  subnet_ids      = [aws_subnet.private.id, aws_subnet.private2.id]  # Make sure you have two subnets
   vpc_id          = aws_vpc.main.id
 
+  # Enable control plane logging for audit and troubleshooting.
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   managed_node_groups = {
