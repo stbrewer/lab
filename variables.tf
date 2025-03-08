@@ -32,7 +32,7 @@ variable "instance_type" {
 # Outdated Ubuntu image (e.g. Ubuntu 14.04 Trusty)
 variable "ubuntu_version" {
   description = "Ubuntu AMI name filter (an outdated version)"
-  default     = "ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"
+  default     = "ubuntu-pro-server/images/hvm-ssd/ubuntu-xenial-16.04-amd64-pro-server-20240514"
 }
 
 variable "mongo_admin_username" {
