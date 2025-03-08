@@ -51,7 +51,7 @@ variable "container_image" {
 }
 
 variable "skip_kubernetes_provider" {
-  description = "Set to true to skip initializing the kubernetes provider"
+  description = "Set to true to use dummy values for the kubernetes provider (for import jobs)"
   type        = bool
   default     = false
 }
