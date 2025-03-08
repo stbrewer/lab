@@ -3,6 +3,11 @@ resource "aws_s3_bucket" "backups" {
   #acl           = "public-read"  # (if you need public-read; otherwise consider using a more restrictive ACL)
   force_destroy = true           # Allows the bucket to be deleted even if it has objects
 
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
   website {
     index_document = "index.html"
   }
