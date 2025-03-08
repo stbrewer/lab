@@ -4,7 +4,7 @@ module "eks" {
   version         = "17.1.0"  # Using an older version for simplicity
   cluster_name    = "${var.resource_prefix}-eks"
   cluster_version = "1.25"
-  subnets      = [aws_subnet.private.id]
+  subnets      = [aws_subnet.private.id, aws_subnet.private2.id]
   vpc_id          = aws_vpc.main.id
 
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
