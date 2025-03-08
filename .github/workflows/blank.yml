@@ -1,0 +1,46 @@
+name: Terraform Import Existing Resources
+
+on:
+  workflow_dispatch: {}  # Manual trigger
+
+jobs:
+  terraform-import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: "1.4.0"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Terraform Init with Remote Backend Migration
+        run: terraform init -migrate-state
+
+      # Import the IAM role if not already in state
+      - name: Import IAM Role
+        run: |
+          terraform import aws_iam_role.db_instance_role wizlab-db-instance-role || echo "IAM role already imported"
+
+      # Import the EC2 Key Pair if not already in state
+      - name: Import EC2 Key Pair
+        run: |
+          terraform import aws_key_pair.lab_key wizlab-key || echo "Key pair already imported"
+
+      # Import the S3 Bucket if not already in state
+      - name: Import S3 Bucket
+        run: |
+          terraform import aws_s3_bucket.backups wizlab-backups || echo "S3 bucket already imported"
+
+      # Import the CloudWatch Log Group if not already in state
+      - name: Import CloudWatch Log Group
+        run: |
+          terraform import module.eks.aws_cloudwatch_log_group.this[0] "/aws/eks/wizlab-eks/cluster" || echo "CloudWatch log group already imported"
