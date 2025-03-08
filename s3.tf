@@ -11,6 +11,15 @@ resource "aws_s3_bucket" "backups" {
   }
 }
 
+# Disable block public access for this bucket so that our policy can be applied
+resource "aws_s3_bucket_public_access_block" "backups" {
+  bucket                  = aws_s3_bucket.backups.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
 resource "aws_s3_bucket_policy" "backups_policy" {
   bucket = aws_s3_bucket.backups.id
   policy = jsonencode({
