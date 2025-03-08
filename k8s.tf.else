@@ -1,10 +1,4 @@
 # k8s.tf
-/*
-provider "kubernetes" {
-  host = var.skip_kubernetes_provider ? "https://dummy" : try(module.eks.cluster_endpoint, "https://dummy")
-  cluster_ca_certificate = var.skip_kubernetes_provider ? base64encode("dummy") : try(base64decode(module.eks.cluster_certificate_authority_data), base64encode("dummy"))
-  token = var.skip_kubernetes_provider ? "dummy" : try(data.aws_eks_cluster_auth.eks.token, "dummy")
-}
 
 
 provider "kubernetes" {
@@ -14,7 +8,6 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.eks.token
 }
-*/
 
 # Create a service account for the application; we will bind this account to the cluster-admin role.
 resource "kubernetes_service_account" "tasky_sa" {
