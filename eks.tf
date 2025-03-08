@@ -1,7 +1,7 @@
 # eks.tf
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "18.0.0"
+  version         = "20.8.4"
   cluster_name    = "${var.resource_prefix}-eks"
   cluster_version = "1.25"
 
