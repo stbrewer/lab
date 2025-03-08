@@ -28,15 +28,10 @@ module "eks" {
 
 # Data sources needed to configure the Kubernetes provider.
 data "aws_eks_cluster" "eks" {
-  name = module.eks.cluster_id
-  depends_on = [
-    module.eks
-  ]
+  name = module.eks.cluster_name
 }
 
 data "aws_eks_cluster_auth" "eks" {
-  name = module.eks.cluster_id
-  depends_on = [
-    module.eks
-  ]
+  name = module.eks.cluster_name
 }
+
