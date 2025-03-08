@@ -21,7 +21,7 @@ variable "public_subnet_cidr" {
 
 variable "private_subnet_cidr" {
   description = "CIDR for the private subnet (for EKS)"
-  default     = "10.0.2.0/24"
+  default     = "10.0.7.0/24"
 }
 
 variable "instance_type" {
