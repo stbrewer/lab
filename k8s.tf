@@ -1,5 +1,5 @@
 # k8s.tf
-
+/*
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.eks.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
@@ -55,7 +55,7 @@ resource "kubernetes_service" "tasky_lb" {
     type = "LoadBalancer"
   }
 }
-
+*/
 #  depends_on = [
 #    data.aws_eks_cluster.eks,
 #    data.aws_eks_cluster_auth.eks
