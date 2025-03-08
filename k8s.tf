@@ -1,11 +1,10 @@
 # k8s.tf
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.eks.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = module.eks.cluster_token
 }
-
 
 # All Kubernetes resources must explicitly depend on these data sources:
 
