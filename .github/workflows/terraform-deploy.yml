@@ -15,7 +15,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.4.0
+          terraform_version: 1.7.4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -26,6 +26,11 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -upgrade
+
+      - name: Clear and Reinitialize Terraform
+        run: |
+          rm -rf .terraform
+          terraform init -upgrade
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
