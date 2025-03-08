@@ -11,7 +11,7 @@ data "aws_ami" "ubuntu" {
 
 # Security group for the DB VM
 resource "aws_security_group" "db_sg" {
-  name        = "${var.resource_prefix}-db-sg"
+  name        = "wizlab-db-sg"
   description = "Allow SSH from anywhere and MongoDB access from the private subnet"
   vpc_id      = aws_vpc.main.id
 
@@ -42,7 +42,7 @@ resource "aws_security_group" "db_sg" {
   }
 
   tags = {
-    Name = "${var.resource_prefix}-db-sg"
+    Name = "wizlab-db-sg"
   }
 }
 
