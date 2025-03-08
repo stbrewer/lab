@@ -31,12 +31,15 @@ jobs:
         run: |
           LOCK_ID=$(aws dynamodb scan \
             --table-name terraform-locks-894370042961 \
-            --query "Items[0].LockID.S" \
+            --query "Items[0].ID.S" \
             --output text)
-          
+      
           if [ "$LOCK_ID" != "None" ]; then
-            echo "Forcing unlock of state with LOCK_ID: $LOCK_ID"
-            terraform force-unlock -force $LOCK_ID || true
+            echo "Deleting Terraform state lock with LOCK_ID: $LOCK_ID"
+            aws dynamodb delete-item \
+              --table-name terraform-locks-894370042961 \
+              --key '{"ID": {"S": "'"$LOCK_ID"'"}}'
+            echo "Terraform state lock removed."
           else
             echo "No active state lock found."
           fi
