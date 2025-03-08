@@ -52,7 +52,7 @@ resource "aws_instance" "db" {
   instance_type               = var.instance_type
   subnet_id                   = aws_subnet.public.id
   associate_public_ip_address = true
-  security_groups             = [aws_security_group.db_sg.name]
+  security_groups             = [aws_security_group.db_sg.id]
   key_name                    = aws_key_pair.lab_key.key_name  # Reference to the Terraform-created key pair
 
   # Attach the IAM instance profile that grants full admin permissions
