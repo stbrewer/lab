@@ -17,7 +17,7 @@ module "eks" {
       min_size       = 1
 
       instance_types = ["t3.medium"]
-      key_name       = "your-key-pair"  # Replace this!
+      key_name       = "wizlab-key"  # Replace this!
 
       tags = {
         Name = "${var.resource_prefix}-eks-node"
