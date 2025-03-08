@@ -9,6 +9,9 @@ module "eks" {
 
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
+  # Prevent the module from trying to create the CloudWatch log group if it already exists.
+  create_aws_cloudwatch_log_group = false
+
   worker_groups = [
     {
       name                 = "eks_nodes"
