@@ -1,9 +1,9 @@
 # eks.tf
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "20.0"  # Using an older version for simplicity
+  version         = "18.0.0"  # Using an older version for simplicity
   cluster_name    = "${var.resource_prefix}-eks"
-  cluster_version = "1.25"
+  cluster_version = "1.22"
   subnet_ids      = [aws_subnet.private.id, aws_subnet.private2.id]  # Make sure you have two subnets
   vpc_id          = aws_vpc.main.id
 
