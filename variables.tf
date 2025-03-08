@@ -49,3 +49,9 @@ variable "container_image" {
   description = "Container image to deploy (built and pushed via CI)"
   default     = "stbrewer/wizlab:tasky"
 }
+
+variable "skip_kubernetes_provider" {
+  description = "Set to true to skip initializing the kubernetes provider"
+  type        = bool
+  default     = false
+}
