@@ -26,8 +26,6 @@ module "eks" {
   }
 }
 
-# Data sources needed to configure the Kubernetes provider.
-module.eks.aws_eks_cluster.this[0].endpoint
 
 data "aws_eks_cluster_auth" "eks" {
   name = module.eks.cluster_name
