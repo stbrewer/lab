@@ -25,7 +25,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -migrate-state
 
       - name: Import IAM Role
         run: terraform import aws_iam_role.db_instance_role wizlab-db-instance-role || echo "IAM role already imported"
