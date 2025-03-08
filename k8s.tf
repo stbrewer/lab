@@ -39,19 +39,23 @@ resource "kubernetes_config_map" "wizexercise" {
 
 resource "kubernetes_service" "tasky_lb" {
   metadata {
-    name = "${var.resource_prefix}-tasky-lb"
+    name = "wizlab-tasky-lb"
+    namespace = "default"
   }
 
   spec {
     selector = {
-      app = "tasky"
+      app = "wizlab-tasky"
     }
-    type = "LoadBalancer"
+
     port {
-      port        = 8080
+      port        = 80
       target_port = 8080
     }
+
+    type = "LoadBalancer"
   }
+}
 
   depends_on = [
     data.aws_eks_cluster.eks,
