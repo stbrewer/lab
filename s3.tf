@@ -6,7 +6,6 @@ resource "aws_s3_bucket" "backups" {
   lifecycle {
     prevent_destroy = true
   }
-}
 
   website {
     index_document = "index.html"
