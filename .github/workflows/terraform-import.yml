@@ -6,6 +6,8 @@ on:
 jobs:
   terraform-import:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_skip_kubernetes_provider: "true"  # Skip the kubernetes provider during import
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -25,22 +27,16 @@ jobs:
       - name: Terraform Init with Remote Backend Migration
         run: terraform init -migrate-state
 
-      # Import the IAM role if not already in state
+      # Import resources that already exist
       - name: Import IAM Role
-        run: |
-          terraform import aws_iam_role.db_instance_role wizlab-db-instance-role || echo "IAM role already imported"
+        run: terraform import aws_iam_role.db_instance_role wizlab-db-instance-role || echo "IAM role already imported"
 
-      # Import the EC2 Key Pair if not already in state
       - name: Import EC2 Key Pair
-        run: |
-          terraform import aws_key_pair.lab_key wizlab-key || echo "Key pair already imported"
+        run: terraform import aws_key_pair.lab_key wizlab-key || echo "Key pair already imported"
 
-      # Import the S3 Bucket if not already in state
       - name: Import S3 Bucket
-        run: |
-          terraform import aws_s3_bucket.backups wizlab-backups || echo "S3 bucket already imported"
+        run: terraform import aws_s3_bucket.backups wizlab-backups || echo "S3 bucket already imported"
 
-      # Import the CloudWatch Log Group if not already in state
       - name: Import CloudWatch Log Group
-        run: |
-          terraform import module.eks.aws_cloudwatch_log_group.this[0] "/aws/eks/wizlab-eks/cluster" || echo "CloudWatch log group already imported"
+        run: terraform import module.eks.aws_cloudwatch_log_group.this[0] "/aws/eks/wizlab-eks/cluster" || echo "CloudWatch log group already imported"
+
