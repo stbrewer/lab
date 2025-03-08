@@ -67,7 +67,7 @@ resource "kubernetes_deployment" "tasky" {
         container {
           name  = "tasky"
           image = var.container_image
-          ports {
+          port {
             container_port = 8080
           }
           # Pass the MongoDB connection string as an environment variable.
