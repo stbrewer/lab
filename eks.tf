@@ -32,13 +32,13 @@ data "aws_eks_cluster_auth" "eks" {
 }
 
 output "cluster_endpoint" {
-  value = aws_eks_cluster.this[0].endpoint
+  value = module.eks.cluster_endpoint
 }
 
 output "cluster_certificate_authority_data" {
-  value = aws_eks_cluster.this[0].certificate_authority[0].data
+  value = module.eks.cluster_certificate_authority_data
 }
 
 output "cluster_token" {
-  value = data.aws_eks_cluster_auth.this[0].token
+  value = module.eks.cluster_token
 }
