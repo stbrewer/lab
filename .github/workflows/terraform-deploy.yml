@@ -26,6 +26,9 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -reconfigure
+        
+      - name: Force Unlock Terraform State (if needed)
+        run: terraform force-unlock $(terraform show | grep 'Lock ID' | awk '{print $NF}') || true
 
       - name: Terraform Plan
         run: terraform plan
