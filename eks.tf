@@ -2,7 +2,7 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "20.8.4"        # Fully compatible with AWS provider 5.x
-  cluster_name    = "${var.resource_prefix}-eks"
+  cluster_name    = "wizlab-eks"
   cluster_version = "1.25"
 
   vpc_id          = aws_vpc.main.id
@@ -29,10 +29,12 @@ module "eks" {
 
 data "aws_eks_cluster" "eks" {
   name = module.eks.cluster_name
+  depends_on = [module.eks]
 }
 
 data "aws_eks_cluster_auth" "eks" {
   name = module.eks.cluster_name
+  depends_on = [module.eks]
 }
 
 output "cluster_endpoint" {
