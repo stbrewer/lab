@@ -27,18 +27,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Import IAM Role
-        run: terraform import aws_iam_role.db_instance_role wizlab-db-instance-role || echo "IAM role already imported"
-
-      - name: Import EC2 Key Pair
-        run: terraform import aws_key_pair.lab_key wizlab-key || echo "EC2 key pair already imported"
-
-      - name: Import S3 Bucket
-        run: terraform import aws_s3_bucket.backups wizlab-backups || echo "S3 bucket already imported"
-
-      - name: Import CloudWatch Log Group
-        run: terraform import module.eks.aws_cloudwatch_log_group.this[0] "/aws/eks/wizlab-eks/cluster" || echo "CloudWatch log group already imported"
-
       - name: Terraform Plan
         run: terraform plan
 
