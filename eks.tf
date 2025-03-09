@@ -103,10 +103,6 @@ data "aws_iam_openid_connect_provider" "eks" {
   url = "https://oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
 }
 
-data "aws_iam_openid_connect_provider" "eks" {
-  url = "https://oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
-}
-
 
 
 data "aws_eks_cluster" "eks" {
