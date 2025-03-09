@@ -77,7 +77,7 @@ resource "aws_instance" "db" {
     #!/bin/bash
     TIMESTAMP=$(date +%F-%H-%M-%S)
     mongodump --authenticationDatabase admin -u ${var.mongo_admin_username} -p ${var.mongo_admin_password} --out /tmp/backup-$TIMESTAMP
-    aws s3 cp /tmp/backup-$TIMESTAMP s3://${aws_s3_bucket.backups.bucket}/backup-$TIMESTAMP --recursive
+    aws s3 cp /tmp/backup-$TIMESTAMP s3://${data.aws_s3_bucket.backups.bucket}/backup-$TIMESTAMP --recursive
     EOS
     chmod +x /usr/local/bin/mongo_backup.sh
 
