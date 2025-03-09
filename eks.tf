@@ -60,9 +60,8 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSServicePolicy" {
 }
 
 # 🛡️ IAM Role for Worker Nodes
-data "aws_iam_role" "eks_node_role" {
+resource "aws_iam_role" "eks_node_role" {
   name = "wizlab-eks-node-role"
-}
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -74,6 +73,16 @@ data "aws_iam_role" "eks_node_role" {
       Action = "sts:AssumeRole"
     }]
   })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.eks_node_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.eks_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEKSWorkerNodePolicy" {
