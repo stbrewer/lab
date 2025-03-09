@@ -24,7 +24,7 @@ module "eks" {
       key_name       = "wizlab-key"  # 🔥 Replace this with an actual valid key pair!
 
       # 🛡️ IAM Role for Worker Nodes
-      iam_role_arn = aws_iam_role.eks_node_role.arn
+      iam_role_arn = data.aws_iam_role.eks_node_role.arn
 
       tags = {
         Name = "wizlab-eks-node"
@@ -67,27 +67,27 @@ data "aws_iam_role" "eks_node_role" {
 
 resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.eks_node_role.name
+  role       = data.aws_iam_role.eks_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.eks_node_role.name
+  role       = data.aws_iam_role.eks_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.eks_node_role.name
+  role       = data.aws_iam_role.eks_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.eks_node_role.name
+  role       = data.aws_iam_role.eks_node_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.eks_node_role.name
+  role       = data.aws_iam_role.eks_node_role.name
 }
 
 # 🛡️ OIDC Provider for EKS
