@@ -114,7 +114,7 @@ data "aws_iam_openid_connect_provider" "eks" {
 }
 
 resource "aws_iam_openid_connect_provider" "eks" {
-  url = data.aws_iam_openid_connect_provider.eks.url
+  url = "https://oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
   client_id_list = ["sts.amazonaws.com"]
   thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0f275a0"]
 
