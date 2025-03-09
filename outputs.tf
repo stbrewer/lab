@@ -6,7 +6,7 @@ output "db_public_ip" {
 
 output "s3_bucket" {
   description = "Name of the S3 bucket for backups"
-  value       = aws_s3_bucket.backups.bucket
+  value       = data.aws_s3_bucket.backups.bucket
 }
 
 output "eks_cluster_name" {
