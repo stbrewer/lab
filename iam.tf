@@ -30,22 +30,6 @@ resource "aws_iam_instance_profile" "db_instance_profile" {
   role = aws_iam_role.db_instance_role.name
 }
 
-resource "aws_iam_role" "eks_admin_role" {
-  name = "eks-admin-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          AWS = "arn:aws:iam::894370042961:user/eks-admin"
-        }
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-}
 
 resource "aws_iam_role" "eks_admin_role" {
   name = "eks-admin-role"
