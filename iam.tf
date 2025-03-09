@@ -34,12 +34,16 @@ resource "aws_iam_instance_profile" "db_instance_profile" {
 resource "aws_iam_role" "eks_admin_role" {
   name = "eks-admin-role"
 
+resource "aws_iam_user" "eks_admin" {
+  name = "eks-admin"
+}
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
       Principal = {
-        AWS = "arn:aws:iam::894370042961:user/eks-admin"
+        AWS = aws_iam_user.eks_admin.arn  # ✅ Use Terraform reference instead of hardcoding
       }
       Action = "sts:AssumeRole"
     }]
