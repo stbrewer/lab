@@ -100,10 +100,18 @@ data "aws_eks_cluster_auth" "this" {
   name = module.eks.cluster_name
 }
 
+data "aws_iam_openid_connect_provider" "eks" {
+  url = "https://oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
+}
+
 resource "aws_iam_openid_connect_provider" "eks" {
-  url = "https://oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = ["567DC0929BEF44B0CD9D0D9ABADFB33EA85A536C"]
+  url = data.aws_iam_openid_connect_provider.eks.url
+  client_id_list = ["sts.amazonaws.com"]
+  thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0f275a0"]
+
+  lifecycle {
+    ignore_changes = [client_id_list, thumbprint_list]
+  }
 }
 
 
