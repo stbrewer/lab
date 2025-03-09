@@ -27,8 +27,14 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
 
+      - name: Remove Stuck IAM Resources
+        run: |
+          terraform state rm aws_iam_role.eks_admin_role || true
+          terraform state rm aws_iam_role_policy_attachment.eks_admin_AmazonEKSClusterPolicy || true
+          terraform state rm aws_iam_role_policy_attachment.eks_admin_AmazonEKSServicePolicy || true
+          terraform state rm aws_iam_role_policy_attachment.eks_admin_AmazonVPCFullAccess || true
+
       - name: Terraform Destroy
-        run: terraform state rm aws_iam_role.eks_admin_role
         run: terraform destroy --auto-approve        
         
 
