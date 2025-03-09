@@ -48,13 +48,13 @@ resource "aws_iam_role" "eks_cluster_role" {
     }]
   })
 }
-
+/*
 resource "kubernetes_config_map" "aws_auth" {
   metadata {
     name      = "aws-auth"
     namespace = "kube-system"
   }
-
+*/
   data = {
     mapRoles = <<YAML
     - rolearn: ${data.aws_iam_role.eks_node_role.arn}
