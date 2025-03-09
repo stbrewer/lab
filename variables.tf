@@ -60,5 +60,5 @@ variable "skip_kubernetes_provider" {
 variable "deploy_node_group" {
   description = "Set to true to deploy the EKS node group"
   type        = bool
-  default     = true
+  default     = false
 }
