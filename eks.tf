@@ -30,7 +30,7 @@ module "eks" {
         Name = "wizlab-eks-node"
       }
     }
-  }
+  } : {} #
 }
 
 # 🛡️ IAM Role for EKS Cluster
