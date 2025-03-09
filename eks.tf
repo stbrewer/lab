@@ -12,7 +12,7 @@ module "eks" {
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   # 🛡️ IAM Role for EKS Cluster
-  cluster_role_arn = aws_iam_role.eks_cluster_role.arn
+  iam_role_arn = aws_iam_role.eks_cluster_role.arn
 
   eks_managed_node_groups = {
     eks_nodes = {
