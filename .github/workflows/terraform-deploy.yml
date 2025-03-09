@@ -27,23 +27,6 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
         
-      - name: Force Unlock Terraform State (if needed)
-        run: |
-          LOCK_ID=$(aws dynamodb scan \
-            --table-name terraform-locks-894370042961 \
-            --query "Items[0].ID.S" \
-            --output text)
-      
-          if [ "$LOCK_ID" != "None" ]; then
-            echo "Deleting Terraform state lock with LOCK_ID: $LOCK_ID"
-            aws dynamodb delete-item \
-              --table-name terraform-locks-894370042961 \
-              --key '{"ID": {"S": "'"$LOCK_ID"'"}}'
-            echo "Terraform state lock removed."
-          else
-            echo "No active state lock found."
-          fi
-
       - name: Terraform Plan
         run: terraform plan
 
@@ -52,5 +35,5 @@ jobs:
 
       # Apply planned infrastructure
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan -lock=false
 
