@@ -60,8 +60,9 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSServicePolicy" {
 }
 
 # 🛡️ IAM Role for Worker Nodes
-resource "aws_iam_role" "eks_node_role" {
+data "aws_iam_role" "eks_node_role" {
   name = "wizlab-eks-node-role"
+}
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -100,7 +101,7 @@ data "aws_eks_cluster_auth" "this" {
 }
 
 resource "aws_iam_openid_connect_provider" "eks" {
-  url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+  url = "https://oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = ["567DC0929BEF44B0CD9D0D9ABADFB33EA85A536C"]
 }
