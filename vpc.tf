@@ -32,6 +32,7 @@ resource "aws_subnet" "private" {
   availability_zone       = "us-west-2a"
   tags = {
     Name = "${var.resource_prefix}-private-subnet"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
@@ -41,6 +42,7 @@ resource "aws_subnet" "private2" {
   availability_zone = "us-west-2b"
   tags = {
     Name = "${var.resource_prefix}-private-subnet-2"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
