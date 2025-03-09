@@ -11,7 +11,7 @@ module "eks" {
 
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
-  iam_role_arn = aws_iam_role.eks_admin_role.arn
+  iam_role_arn = aws_iam_role.eks_cluster_role.arn  # ✅ Use the correct role created in eks.tf
 
   eks_managed_node_groups = var.deploy_node_group ? {
     eks_nodes = {
@@ -56,7 +56,7 @@ resource "kubernetes_config_map" "aws_auth" {
 
   data = {
     mapRoles = <<YAML
-    - rolearn: ${data.aws_iam_role.eks_node_role.arn}
+    - rolearn: ${aws_iam_role.eks_node_role.arn}  
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
@@ -122,20 +122,20 @@ data "aws_eks_cluster_auth" "this" {
 }
 
 data "aws_iam_openid_connect_provider" "eks" {
-  url = "https://oidc.eks.us-west-2.amazonaws.com/id/CA511CF4FBA87A871816F05CD31D528F"
+  url = data.aws_eks_cluster.eks.identity.oidc.issuer
 }
+
 
 
 
 data "aws_eks_cluster" "eks" {
   name = module.eks.cluster_name
-  depends_on = [module.eks]
 }
 
 data "aws_eks_cluster_auth" "eks" {
   name = module.eks.cluster_name
-  depends_on = [module.eks]
 }
+
 
 output "cluster_endpoint" {
   value = data.aws_eks_cluster.eks.endpoint
