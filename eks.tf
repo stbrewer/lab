@@ -101,9 +101,8 @@ data "aws_eks_cluster_auth" "this" {
 
 resource "aws_iam_openid_connect_provider" "eks" {
   url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
-
   client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = ["<thumbprint_value>"]
+  thumbprint_list = ["567DC0929BEF44B0CD9D0D9ABADFB33EA85A536C"]
 }
 
 
