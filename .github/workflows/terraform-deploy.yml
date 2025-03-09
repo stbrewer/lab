@@ -31,6 +31,7 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -lock=false
+        run: terraform apply -var="deploy_node_group=false" -auto-approve
+
 
 
