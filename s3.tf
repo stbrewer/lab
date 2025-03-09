@@ -1,7 +1,7 @@
 data "aws_s3_bucket" "backups" {
   bucket = "wizlab-backups"
 }
-
+/*
 resource "aws_s3_bucket" "backups" {
   bucket = data.aws_s3_bucket.backups.bucket
   #acl           = "public-read"  # (if you need public-read; otherwise consider using a more restrictive ACL)
@@ -19,7 +19,7 @@ resource "aws_s3_bucket" "backups" {
     Name = "${var.resource_prefix}-backups"
   }
 }
-
+*/
 resource "aws_s3_bucket_ownership_controls" "backups_ownership" {
   bucket = aws_s3_bucket.backups.id
 
