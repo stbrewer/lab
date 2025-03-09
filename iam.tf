@@ -78,17 +78,3 @@ resource "aws_iam_role_policy_attachment" "eks_admin_AmazonVPCFullAccess" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "eks_admin_AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.eks_admin_role.name
-}
-
-resource "aws_iam_role_policy_attachment" "eks_admin_AmazonEKSServicePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.eks_admin_role.name
-}
-
-resource "aws_iam_role_policy_attachment" "eks_admin_AmazonVPCFullAccess" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess"
-  role       = aws_iam_role.eks_admin_role.name
-}
