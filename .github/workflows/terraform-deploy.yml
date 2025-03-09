@@ -28,6 +28,7 @@ jobs:
         run: terraform init -reconfigure
 
       - name: Terraform Destroy
+        run: terraform state rm aws_iam_role.eks_admin_role
         run: terraform destroy --auto-approve        
         
 
