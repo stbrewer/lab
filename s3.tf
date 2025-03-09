@@ -1,5 +1,9 @@
+data "aws_s3_bucket" "backups" {
+  bucket = "wizlab-backups"
+}
+
 resource "aws_s3_bucket" "backups" {
-  bucket        = "${var.resource_prefix}-backups"
+  bucket = data.aws_s3_bucket.backups.bucket
   #acl           = "public-read"  # (if you need public-read; otherwise consider using a more restrictive ACL)
   force_destroy = true           # Allows the bucket to be deleted even if it has objects
 
