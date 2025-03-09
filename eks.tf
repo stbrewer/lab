@@ -14,7 +14,7 @@ module "eks" {
   # 🛡️ IAM Role for EKS Cluster
   iam_role_arn = aws_iam_role.eks_cluster_role.arn
 
-  eks_managed_node_groups = {
+  eks_managed_node_groups = var.deploy_node_group ? {
     eks_nodes = {
       desired_size   = 1
       max_size       = 1
